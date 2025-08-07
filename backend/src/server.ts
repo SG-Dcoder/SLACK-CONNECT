@@ -41,10 +41,10 @@ async function startServer() {
     startScheduler();
 
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-      console.log(`📊 Database ready at ${process.env.DB_PATH}`);
-      console.log(`🔐 OAuth endpoint available at http://localhost:${PORT}/auth/slack`);
-      console.log(`✉️ Message endpoints available under http://localhost:${PORT}/messages`);
+      console.log(`Server running on http://localhost:${PORT}`);
+      console.log(`Database ready at ${process.env.DB_PATH}`);
+      console.log(`OAuth endpoint available at http://localhost:${PORT}/auth/slack`);
+      console.log(`Message endpoints available under http://localhost:${PORT}/messages`);
     });
   } catch (err) {
     console.error('Failed to start server:', err);

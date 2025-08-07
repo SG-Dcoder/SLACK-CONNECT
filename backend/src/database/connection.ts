@@ -2,11 +2,17 @@ import sqlite3 from 'sqlite3';
 import path from 'path';
 import fs from 'fs';
 
-const DB_PATH = process.env.DB_PATH || './database/slack-connect.db';
+// Use /tmp directory for Vercel serverless functions
+const DB_PATH = process.env.NODE_ENV === 'production' 
+  ? '/tmp/slack-connect.db'  // Vercel allows writes to /tmp
+  : (process.env.DB_PATH || './database/slack-connect.db');
 
-const dbDir = path.dirname(DB_PATH);
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir, { recursive: true });
+// Only create directory in development (not in serverless)
+if (process.env.NODE_ENV !== 'production') {
+  const dbDir = path.dirname(DB_PATH);
+  if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true });
+  }
 }
 
 class DatabaseConnection {
@@ -34,7 +40,7 @@ class DatabaseConnection {
           console.error('Error opening database:', err);
           reject(err);
         } else {
-          console.log('✅ Connected to SQLite database');
+          console.log('Connected to SQLite database at:', DB_PATH);
           resolve(this.db!);
         }
       });
