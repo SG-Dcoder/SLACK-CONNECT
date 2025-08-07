@@ -1,5 +1,3 @@
-// src/contexts/AuthContext.tsx
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface User {
@@ -16,7 +14,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
 }
 
-// Create context with default empty values
+
 const AuthContext = createContext<AuthContextType>({
   user: null,
   accessToken: null,
@@ -25,12 +23,11 @@ const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
 });
 
-// Hook to use auth easily in components
+
 export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-// Provider component to wrap app and provide auth state
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -39,7 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
-  // Load auth state from localStorage on mount
+
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     const savedToken = localStorage.getItem('accessToken');
@@ -49,7 +46,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, []);
 
-  // Handle login by saving user and token
+
   const login = (userData: User, token: string) => {
     setUser(userData);
     setAccessToken(token);
@@ -57,7 +54,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.setItem('accessToken', token);
   };
 
-  // Clear auth state on logout
   const logout = () => {
     setUser(null);
     setAccessToken(null);

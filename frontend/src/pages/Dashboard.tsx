@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
   const [scheduledMessages, setScheduledMessages] = useState<ScheduledMessage[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Load channels and scheduled messages on mount
+  
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
@@ -40,7 +40,7 @@ const Dashboard: React.FC = () => {
         setChannels(channelsResponse.data.channels ?? []);
         setSelectedChannel(channelsResponse.data.channels?.[0]?.id ?? '');
         
-        // Filter to show only upcoming messages on initial load
+        
         const allMessages = scheduledResponse.data.scheduledMessages ?? [];
         const upcomingMessages = filterUpcomingMessages(allMessages);
         setScheduledMessages(upcomingMessages);
@@ -54,7 +54,7 @@ const Dashboard: React.FC = () => {
     loadData();
   }, []);
 
-  // Real-time filtering - removes expired messages every 5 seconds
+
   useEffect(() => {
     const filterInterval = setInterval(() => {
       const now = new Date();
@@ -62,21 +62,21 @@ const Dashboard: React.FC = () => {
         const scheduledTime = new Date(message.scheduledAt);
         return scheduledTime > now;
       }));
-    }, 5000); // Filter every 5 seconds
+    }, 5000); 
 
     return () => clearInterval(filterInterval);
   }, []);
 
-  // Auto-refresh scheduled messages from server every minute
+  
   useEffect(() => {
     const interval = setInterval(async () => {
       await refreshScheduledMessages();
-    }, 60000); // Refresh every minute
+    }, 60000); 
 
     return () => clearInterval(interval);
   }, []);
 
-  // Helper function to filter upcoming messages
+ 
   const filterUpcomingMessages = (messages: ScheduledMessage[]) => {
     const now = new Date();
     return messages.filter(message => {
@@ -85,13 +85,13 @@ const Dashboard: React.FC = () => {
     });
   };
 
-  // Refresh scheduled messages list after sending or scheduling messages
+  
   const refreshScheduledMessages = async () => {
     try {
       const response = await api.get('/messages/scheduled');
       const allMessages = response.data.scheduledMessages ?? [];
       
-      // Filter to show only upcoming messages
+     
       const upcomingMessages = filterUpcomingMessages(allMessages);
       setScheduledMessages(upcomingMessages);
     } catch (error) {

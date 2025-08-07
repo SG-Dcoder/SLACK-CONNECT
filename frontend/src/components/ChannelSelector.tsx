@@ -1,5 +1,3 @@
-// src/components/ChannelSelector.tsx
-
 import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 

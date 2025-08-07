@@ -1,5 +1,3 @@
-// src/components/MessageForm.tsx
-
 import React, { useState } from 'react';
 import {
   TextField,

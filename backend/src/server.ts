@@ -1,7 +1,5 @@
-// src/server.ts
-
 import dotenv from 'dotenv';
-dotenv.config();  // 1) Load env first
+dotenv.config();  
 
 import express from 'express';
 import cors from 'cors';
@@ -11,12 +9,12 @@ import { runMigrations } from './database/migrate';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Simple health endpoint
+
 app.get('/', (_req, res) => {
   res.json({ message: 'Slack Connect Backend is running!' });
 });
@@ -28,27 +26,20 @@ app.get('/api/health', (_req, res) => {
   });
 });
 
-// Start server after DB is ready
+
 async function startServer() {
   try {
-    // 2) Connect to the database
     await DatabaseConnection.getInstance().connect();
-
-    // 3) Run migrations
     await runMigrations();
-
-    // 4) Import and register routes (after DB is initialized)
     const authRoutes = (await import('./routes/auth')).default;
     app.use('/auth', authRoutes);
 
     const messageRoutes = (await import('./routes/messages')).default;
     app.use('/messages', messageRoutes);
-
-    // 5) Start the scheduler for pending messages
+   
     const { startScheduler } = await import('./jobs/scheduler');
     startScheduler();
 
-    // 6) Launch server
     app.listen(PORT, () => {
       console.log(`🚀 Server running on http://localhost:${PORT}`);
       console.log(`📊 Database ready at ${process.env.DB_PATH}`);

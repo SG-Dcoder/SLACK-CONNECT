@@ -11,9 +11,8 @@ export class AuthController {
 
   // Start OAuth flow: redirect user to Slack's consent screen with state parameter
   initiateAuth = (_req: Request, res: Response): void => {
-    const state = uuidv4(); // generate unique state for CSRF protection
+    const state = uuidv4(); 
     const authUrl = this.slackService.generateOAuthUrl(state);
-    // TODO: Store and verify 'state' in production for security against CSRF attacks
     res.redirect(authUrl);
   };
 
@@ -34,7 +33,7 @@ export class AuthController {
         return;
       }
 
-      // Upsert user in DB
+    
       let user = await this.userModel.findBySlackUserId(tokenResponse.authed_user.id);
 
       if (user) {

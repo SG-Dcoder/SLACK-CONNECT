@@ -1,4 +1,4 @@
-import * as jwt from 'jsonwebtoken';  // Use namespace import
+import * as jwt from 'jsonwebtoken';  
 
 export interface JwtPayload {
   userId: string;
@@ -26,7 +26,6 @@ export class JwtService {
     this.refreshTokenSecret = process.env.JWT_REFRESH_SECRET;
   }
 
-  // Generate access token
   generateAccessToken(payload: Omit<JwtPayload, 'iat' | 'exp'>): string {
     return jwt.sign(
       payload,
@@ -35,7 +34,6 @@ export class JwtService {
     );
   }
 
-  // Generate refresh token
   generateRefreshToken(payload: Omit<JwtPayload, 'iat' | 'exp'>): string {
     return jwt.sign(
       payload,
@@ -44,7 +42,6 @@ export class JwtService {
     );
   }
 
-  // Verify access token
   verifyAccessToken(token: string): JwtPayload {
     try {
       return jwt.verify(token, this.accessTokenSecret) as JwtPayload;
@@ -53,7 +50,6 @@ export class JwtService {
     }
   }
 
-  // Verify refresh token
   verifyRefreshToken(token: string): JwtPayload {
     try {
       return jwt.verify(token, this.refreshTokenSecret) as JwtPayload;
@@ -62,7 +58,6 @@ export class JwtService {
     }
   }
 
-  // Extract bearer token from header
   extractTokenFromHeader(authHeader: string | undefined): string | null {
     if (!authHeader) return null;
     const parts = authHeader.split(' ');

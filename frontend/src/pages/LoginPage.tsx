@@ -1,5 +1,3 @@
-// src/pages/LoginPage.tsx
-
 import React from 'react';
 import { Container, Paper, Typography, Button, Box } from '@mui/material';
 

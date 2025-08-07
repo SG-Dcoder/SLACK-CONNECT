@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 export class ScheduledMessageModel {
   private db = DatabaseConnection.getInstance().getDatabase();
 
-  // Create a new scheduled message
   async create(messageData: Omit<ScheduledMessage, 'id' | 'status' | 'createdAt' | 'updatedAt'>): Promise<ScheduledMessage> {
     const id = uuidv4();
     const now = new Date().toISOString();
@@ -91,7 +90,6 @@ export class ScheduledMessageModel {
   }
 
   // Delete a scheduled message
- // In your ScheduledMessageModel class, update the delete method:
 async delete(id: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const sql = `DELETE FROM scheduled_messages WHERE id = ?`;
@@ -111,7 +109,7 @@ async delete(id: string): Promise<void> {
   });
 }
 
-  // Get messages ready to be sent (already correctly implemented)
+  // Get messages ready to be sent
   async findReadyToSend(): Promise<ScheduledMessage[]> {
     return new Promise((resolve, reject) => {
       const sql = `

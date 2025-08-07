@@ -39,10 +39,10 @@ export async function runMigrations(): Promise<void> {
   return new Promise((resolve, reject) => {
     db.exec(createTables, (err) => {
       if (err) {
-        console.error('❌ Error running migrations:', err);
+        console.error('Error running migrations:', err);
         reject(err);
       } else {
-        console.log('✅ Database migrations completed successfully');
+        console.log('Database migrations completed successfully');
         resolve();
       }
     });

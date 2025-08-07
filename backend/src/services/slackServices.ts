@@ -1,5 +1,3 @@
-// src/services/slackServices.ts
-
 import axios from 'axios';
 import { WebClient } from '@slack/web-api';
 
@@ -58,7 +56,6 @@ export class SlackService {
     return response.data;
   }
 
-  // Refresh an expired Slack token
   async refreshAccessToken(refreshToken: string): Promise<SlackOAuthResponse> {
     const params = new URLSearchParams({
       client_id: this.clientId,
@@ -81,12 +78,11 @@ export class SlackService {
     return response.data;
   }
 
-  // Create a Slack WebClient for API calls
+ 
   getClient(accessToken: string): WebClient {
     return new WebClient(accessToken);
   }
 
-  // List the authenticated user’s channels
   async getChannels(accessToken: string) {
     const result = await this.getClient(accessToken).conversations.list({
       types: 'public_channel,private_channel',
@@ -95,12 +91,10 @@ export class SlackService {
     return result.channels || [];
   }
 
-  // Send a message immediately
   async sendMessage(accessToken: string, channel: string, text: string) {
     return this.getClient(accessToken).chat.postMessage({ channel, text });
   }
 
-  // Schedule a message for future delivery
   async scheduleMessage(accessToken: string, channel: string, text: string, postAt: Date) {
     return this.getClient(accessToken).chat.scheduleMessage({
       channel,

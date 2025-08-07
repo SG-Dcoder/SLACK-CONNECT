@@ -1,5 +1,3 @@
-// src/components/ScheduledMessagesList.tsx
-
 import React from 'react';
 import {
   List,
@@ -42,14 +40,14 @@ const ScheduledMessagesList: React.FC<ScheduledMessagesListProps> = ({ messages,
     }
   };
 
-  // Filter messages to only show upcoming ones
+
   const now = new Date();
   const upcomingMessages = messages.filter(message => {
     const scheduledTime = new Date(message.scheduledAt);
     return scheduledTime > now;
   });
 
-  // Helper function to calculate time until message is sent
+  
   const getTimeUntilSend = (scheduledAt: string) => {
     const now = new Date();
     const scheduled = new Date(scheduledAt);

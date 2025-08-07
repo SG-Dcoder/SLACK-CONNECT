@@ -1,12 +1,10 @@
 import cron from 'node-cron';
-//import DatabaseConnection from '../database/connection';
 import { ScheduledMessageModel } from '../models/ScheduledMessage';
 import { SlackService } from '../services/slackServices';
 
 const scheduledModel = new ScheduledMessageModel();
 const slackService = new SlackService();
 
-// Every minute, check for messages to send
 export function startScheduler() {
   cron.schedule('* * * * *', async () => {
     const pending = await scheduledModel.findReadyToSend();

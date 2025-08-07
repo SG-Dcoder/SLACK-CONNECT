@@ -4,7 +4,6 @@ import fs from 'fs';
 
 const DB_PATH = process.env.DB_PATH || './database/slack-connect.db';
 
-// Make sure database directory exists
 const dbDir = path.dirname(DB_PATH);
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir, { recursive: true });

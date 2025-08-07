@@ -21,7 +21,6 @@ export class AuthMiddleware {
 
   authenticate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      // Don't authenticate /auth/token route (allow access)
       if (req.path === '/auth/token') {
         next();
         return;

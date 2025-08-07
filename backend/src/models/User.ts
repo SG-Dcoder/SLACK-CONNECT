@@ -108,7 +108,6 @@ export class UserModel {
     });
   }
 
-  // Added findById method
   async findById(id: string): Promise<User | null> {
     return new Promise((resolve, reject) => {
       const sql = `SELECT * FROM users WHERE id = ?`;

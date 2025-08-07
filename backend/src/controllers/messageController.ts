@@ -1,5 +1,3 @@
-// src/controllers/messageController.ts
-
 import { Request, Response } from 'express';
 import { SlackService } from '../services/slackServices';
 import { ScheduledMessageModel } from '../models/ScheduledMessage';

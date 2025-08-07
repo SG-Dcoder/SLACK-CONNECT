@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Container, CircularProgress, Typography, Alert } from '@mui/material';
-import api from '../api'; // your axios instance configured with backend baseURL
-import { useAuth } from '../contexts/AuthContext'; // your auth context to store user and token
+import api from '../api'; 
+import { useAuth } from '../contexts/AuthContext'; 
 
 const CallbackPage: React.FC = () => {
   const navigate = useNavigate();
@@ -10,10 +10,10 @@ const CallbackPage: React.FC = () => {
   const { login } = useAuth();
 
   const [error, setError] = useState<string | null>(null);
-  const [hasExchanged, setHasExchanged] = useState(false); // prevent repeated calls
+  const [hasExchanged, setHasExchanged] = useState(false); 
 
   useEffect(() => {
-    if (hasExchanged) return; // only run once
+    if (hasExchanged) return; 
 
     const params = new URLSearchParams(location.search);
     const code = params.get('code');
@@ -26,16 +26,14 @@ const CallbackPage: React.FC = () => {
 
     async function exchangeToken() {
       try {
-        // Call backend to exchange Slack code for tokens and user info
+        
         const response = await api.get(`/auth/token?code=${code}&state=${state ?? ''}`);
         const data = response.data;
 
         if (data.accessToken && data.user) {
-          // Save the logged in user and token in your auth context/state
           login(data.user, data.accessToken);
           setHasExchanged(true);
 
-          // Redirect to main dashboard or home page, clearing query params
           navigate('/', { replace: true });
         } else {
           setError('Failed to get access token from backend.');
