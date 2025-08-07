@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                          // Modern ES features for Node 14+
+    "module": "commonjs",                        // CommonJS for Node.js environment
+    "outDir": "./dist",                          // Compiled files output
+    "rootDir": "./src",                          // Source code root
+    "strict": true,                              // Enable all strict type-checking options
+    "esModuleInterop": true,                     // Enables 'import * as jwt from' to work well
+    "skipLibCheck": true,                        // Skip type checks for all declaration files to speed up compilation
+    "forceConsistentCasingInFileNames": true,   // Ensure consistent casing for file imports
+    "resolveJsonModule": true,                   // Allow importing JSON files
+    "moduleResolution": "node",                  // Use Node's module resolution strategy
+    "noImplicitAny": true,                        // Optional: catch missing type annotations
+    "noUnusedLocals": true,                       // Optional: warns about unused locals
+    "noUnusedParameters": true,                   // Optional: warns about unused parameters
+    "sourceMap": true,                            // Optional: generates source maps for easier debugging
+    "allowJs": true                               // Optional: allow compiling JS files if needed
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
